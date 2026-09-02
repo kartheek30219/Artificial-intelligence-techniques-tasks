@@ -1,0 +1,120 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyME/+iLecpnMptSe0JdryU0",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/kartheek30219/Artificial-intelligence-techniques-tasks/blob/main/TASK-1%20%20BFS%20%26%20DFS\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "tFt76Ar1TZtQ",
+        "outputId": "722683b3-2a2f-4013-bf5e-f1179aa97543"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "BFS Traversal:\n",
+            "A B C "
+          ]
+        }
+      ],
+      "source": [
+        "from collections import deque\n",
+        "\n",
+        "# BFS for A–B–C tree\n",
+        "tree = {\n",
+        "    'A': ['B', 'C'],\n",
+        "    'B': [],\n",
+        "    'C': []\n",
+        "}\n",
+        "\n",
+        "def bfs(tree, start):\n",
+        "    visited = set()\n",
+        "    queue = deque([start])\n",
+        "    visited.add(start)\n",
+        "\n",
+        "    while queue:\n",
+        "        node = queue.popleft()\n",
+        "        print(node, end=\" \")\n",
+        "\n",
+        "        for child in tree[node]:\n",
+        "            if child not in visited:\n",
+        "                visited.add(child)\n",
+        "                queue.append(child)\n",
+        "\n",
+        "print(\"BFS Traversal:\")\n",
+        "bfs(tree, 'A')\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# DFS for A–B–C tree\n",
+        "tree = {\n",
+        "    'A': ['B', 'C'],\n",
+        "    'B': [],\n",
+        "    'C': []\n",
+        "}\n",
+        "\n",
+        "def dfs(tree, start, visited=None):\n",
+        "    if visited is None:\n",
+        "        visited = set()\n",
+        "    visited.add(start)\n",
+        "    print(start, end=\" \")\n",
+        "\n",
+        "    for child in tree[start]:\n",
+        "        if child not in visited:\n",
+        "            dfs(tree, child, visited)\n",
+        "\n",
+        "print(\"DFS Traversal:\")\n",
+        "dfs(tree, 'A')\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nvY9O0H_Tg2w",
+        "outputId": "358dc5ab-0ec5-4ae2-a36e-c158045cfaad"
+      },
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "DFS Traversal:\n",
+            "A B C "
+          ]
+        }
+      ]
+    }
+  ]
+}
