@@ -1,0 +1,134 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNH1rCJxqqm/8W+SIdpm5A5",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/kartheek30219/Artificial-intelligence-techniques-tasks/blob/main/TASK-4%20MINIMAX%20ALGORITHM\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class Node:\n",
+        "    def __init__(self, name, value=None, children=None):\n",
+        "        self.name = name\n",
+        "        self.value = value\n",
+        "        self.children = children if children is not None else []\n",
+        "\n",
+        "    def is_terminal(self):\n",
+        "        return len(self.children) == 0\n",
+        "\n",
+        "\n",
+        "def minimax(node, depth, is_maximizing_player):\n",
+        "\n",
+        "    # Base case\n",
+        "    if depth == 0 or node.is_terminal():\n",
+        "        return node.value\n",
+        "\n",
+        "    # MAX player's turn\n",
+        "    if is_maximizing_player:\n",
+        "        best_value = float('-inf')\n",
+        "\n",
+        "        for child in node.children:\n",
+        "            value = minimax(child, depth - 1, False)\n",
+        "            best_value = max(best_value, value)\n",
+        "\n",
+        "        return best_value\n",
+        "\n",
+        "    # MIN player's turn\n",
+        "    else:\n",
+        "        best_value = float('inf')\n",
+        "\n",
+        "        for child in node.children:\n",
+        "            value = minimax(child, depth - 1, True)\n",
+        "            best_value = min(best_value, value)\n",
+        "\n",
+        "        return best_value\n",
+        "\n",
+        "\n",
+        "# Leaf nodes\n",
+        "A = Node(\"A\", value=3)\n",
+        "B = Node(\"B\", value=5)\n",
+        "C = Node(\"C\", value=2)\n",
+        "D = Node(\"D\", value=9)\n",
+        "E = Node(\"E\", value=12)\n",
+        "F = Node(\"F\", value=5)\n",
+        "G = Node(\"G\", value=23)\n",
+        "H = Node(\"H\", value=23)\n",
+        "\n",
+        "\n",
+        "# MAX level\n",
+        "Child_1 = Node(\"Child_1\", children=[A, B])\n",
+        "Child_2 = Node(\"Child_2\", children=[C, D])\n",
+        "Child_3 = Node(\"Child_3\", children=[E, F])\n",
+        "Child_4 = Node(\"Child_4\", children=[G, H])\n",
+        "\n",
+        "\n",
+        "# MIN level\n",
+        "Branch_Left = Node(\n",
+        "    \"Branch_Left\",\n",
+        "    children=[Child_1, Child_2]\n",
+        ")\n",
+        "\n",
+        "Branch_Right = Node(\n",
+        "    \"Branch_Right\",\n",
+        "    children=[Child_3, Child_4]\n",
+        ")\n",
+        "\n",
+        "\n",
+        "# Root MAX\n",
+        "Root = Node(\n",
+        "    \"Root\",\n",
+        "    children=[Branch_Left, Branch_Right]\n",
+        ")\n",
+        "\n",
+        "\n",
+        "# Run Minimax\n",
+        "optimal_value = minimax(\n",
+        "    Root,\n",
+        "    depth=3,\n",
+        "    is_maximizing_player=True\n",
+        ")\n",
+        "\n",
+        "print(\"The optimal value at the Root node is:\", optimal_value)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "8CciH9K6Vd-R",
+        "outputId": "2afc11da-6bd1-41d3-ebf0-fb5387e710f2"
+      },
+      "execution_count": 6,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "The optimal value at the Root node is: 12\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
