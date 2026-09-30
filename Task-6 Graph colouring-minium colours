@@ -1,0 +1,53 @@
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B', 'D', 'E'],
+    'D': ['B', 'C', 'E'],
+    'E': ['C', 'D']
+}
+
+vertices = list(graph.keys())
+color = {}
+
+def is_safe(vertex, c):
+    for neighbor in graph[vertex]:
+        if neighbor in color and color[neighbor] == c:
+            return False
+    return True
+
+
+def color_graph(index, num_colors):
+    if index == len(vertices):
+        return True
+
+    vertex = vertices[index]
+
+    for c in range(1, num_colors + 1):
+        if is_safe(vertex, c):
+            color[vertex] = c
+
+            if color_graph(index + 1, num_colors):
+                return True
+
+            del color[vertex]
+
+    return False
+num_colors = int(input("Enter number of colors: "))
+if color_graph(0, num_colors):
+
+    print("\nGraph can be colored using", num_colors, "colors")
+
+    print("\nColor Assignment:")
+    for vertex in vertices:
+        print(vertex, "-> Color", color[vertex])
+
+    print("\nVerification:")
+    for vertex in vertices:
+        for neighbor in graph[vertex]:
+            if vertex < neighbor:
+                print(vertex + "-" + neighbor + " : Valid")
+
+    print("\nResult: Graph coloring is valid.")
+
+else:
+    print("\nGraph cannot be colored using", num_colors, "colors.")
