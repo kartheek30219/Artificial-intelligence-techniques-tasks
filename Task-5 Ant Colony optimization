@@ -1,0 +1,29 @@
+import random
+
+total_ants = 100
+
+minimum_path_probability = 72
+long_path_probability = 28
+
+minimum_path_ants = 0
+long_path_ants = 0
+
+for i in range(total_ants):
+    choice = random.randint(1, 100)
+
+    if choice <= minimum_path_probability:
+        minimum_path_ants += 1
+    else:
+        long_path_ants += 1
+
+print("Ant Colony Optimization (ACO)")
+print("-----------------------------")
+print("Total no. of ants:", total_ants)
+print("Minimum path probability:", minimum_path_probability, "%")
+print("Long path probability:", long_path_probability, "%")
+print("No. of ants following minimum path:", minimum_path_ants)
+print("No. of ants following long path:", long_path_ants)
+
+print("\nResult:")
+print("Minimum path: Minimum path")
+print("Long path: Long path")
